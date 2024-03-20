@@ -1,0 +1,239 @@
+﻿@model IEnumerable<ShopDongHo.Models.DongHo>
+@{
+    ViewBag.Title = "Watch Luxury Store";
+}
+
+<head>
+
+    <!-- Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .checked {
+            font-size: .99rem;
+            color: goldenrod;
+        }
+    </style>
+
+</head>
+<div>
+    <style>
+        #video {
+            margin: 0px;
+            background-size: cover;
+        }
+
+        .center {
+            width: 100%;
+            height: 100%
+            
+        }
+    </style>
+    <video class="center" id="video" autoplay muted loop>
+        <source src="~/Images/demo.mp4" type="video/mp4" />
+    </video>
+    <div style="margin-top: 40px; font-family: Impact; background-color: gainsboro; " >
+        <div class="col text-center">
+            <div class=" new_arrivals_title">
+                <h1>The Future</h1>
+                <h5>Of Watches </h5>
+            </div>
+        </div>
+    </div>
+    <style>
+        .banner {
+            height: 500px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .banner_item {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .banner_category {
+            height: 50px;
+            background: #FFFFFF;
+            min-width: 170px;
+            padding-left: 25px;
+            padding-right: 25px;
+            background-size: cover;
+            border-width: thick;
+        }
+
+            .banner_category a {
+                display: block;
+                color: #1e1e27;
+                text-transform: uppercase;
+                font-size: 22px;
+                font-weight: 600;
+                text-align: center;
+                line-height: 50px;
+                
+                -webkit-transition: color 0.3s ease;
+                -moz-transition: color 0.3s ease;
+                -ms-transition: color 0.3s ease;
+                -o-transition: color 0.3s ease;
+                transition: color 0.3s ease;
+            }
+
+                .banner_category a:hover {
+                    color: #b5aec4;
+                }
+    </style>
+    <div class="banner">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="banner_item align-items-center" style="background-image: url('../../storage/home_1.jpg');">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="banner_item align-items-center" style="background-image: url('../../storage/home_2.jpg');">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="banner_item align-items-center" style="background-image: url('../../storage/home_3.png');">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="banner_item" style="background-image: url('../../storage/home_4.png');">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <h5 style="text-align: center; font-size: 40px; font-family: Impact; background-color: gainsboro;" class="card-header">@ViewBag.Title</h5>
+        <div class="card-body">
+            <div class="card-deck">
+                @foreach (var item in Model)
+                {
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="card list-books">
+                            <img style="background-color:whitesmoke;" src="~/@item.HinhAnhDH" class="card-img-top" alt="...">
+                            <div class="card-body al">
+                                <h5 style="text-align: center; font-size: .90rem !important; font-weight: bolder; color: dimgrey; margin-bottom: 5px; height: 4rem;">@item.TenDongHo</h5>
+                                <p style="text-align: center; font-size: .98rem !important; font-weight: bold; color: indianred; margin-bottom: 5px; height: 4rem; ">@String.Format("{0:N0}", item.DonGia) VNĐ</p>
+
+                                @if (item.SoLuong < 20)
+                                {
+                                    <div class="rating" style="text-align: center; color: white;">
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"> (@item.SoLuong) </i>
+                                    </div>
+                                }
+                                else if (item.SoLuong > 20 || item.SoLuong < 50)
+                                {
+                                    <div class="rating" style="text-align: center; color: white;">
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star-half checked"> (@item.SoLuong) </i>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="rating" style="text-align :center; color:goldenrod;">
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"> (@item.SoLuong) </i>
+                                    </div>
+                                }
+                            </div>
+                            <div class="card-footer text-center">
+                                <!-- HTML !-->
+                                <a style="font-size: 15px; color: snow; border-radius:12px !important; background-color:orangered " href="@Url.Action("ThemVaoGio", "GioHang", new { maSP = item.ID })" onclick="return confirm('Thêm Vào Giỏ Hàng ?')" class="btn btn-danger m-1 fas fa-shopping-cart"> Giỏ hàng</a>
+                                <a style="font-size: 15px; color: snow; border-radius:12px !important; background-color: lightskyblue " href="@Url.Action("Details", "Home", new { maSP = item.ID })" class="btn btn-info m-1 fas fa-info-circle"> Chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; font-family: Impact; " class="row">
+        <div class="col text-center">
+            <div class=" new_arrivals_title">
+                <h1>About Us</h1>
+                <h5>Our Company Watches </h5>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="margin-top:20px;" id="slider" class="carousel slide" data-ride="carousel">
+
+
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+            <li data-target="#demo" data-slide-to="3"></li>
+            <li data-target="#demo" data-slide-to="4"></li>
+            <li data-target="#demo" data-slide-to="5"></li>
+        </ul>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/Storage/his_1.jpg" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Storage/his_2.jpg" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Storage/his_3.jpg" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Storage/his_4.jpg" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Storage/his_5.jpg" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Storage/his_6.jpg" class="d-block w-100" alt="">
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#slider" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#slider" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+

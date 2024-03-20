@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ShopDongHo.Models.BestSaleModels>
+
+@{
+    ViewBag.Title = "Đồng hồ được mua nhiều nhất tại Watch Luxury Store";
+}
+<div class="card mt-3">
+    <h5 class="card-header">@ViewBag.Title</h5>
+    <div class="card-body">
+        <div class="card-deck">
+            @{ int stt = 1; }
+            @{ int pre_id = 0;}
+            @foreach (var item in Model)
+            {
+                if (item.ID != pre_id)
+                {
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="card list-books">
+                            <span class="alert text-danger">Bán chạy @stt</span>
+                            <img src="~/@item.HinhAnhDH" class="card-img-top" alt="...">
+                            <div class="card-body al">
+                                <h5 style="text-align: center; font-size: .90rem !important; font-weight: bolder; color: dimgrey; margin-bottom: 5px; height: 4rem;">@item.TenDongHo</h5>
+                                <p style="text-align: center; font-size: .98rem !important; font-weight: bold; color: indianred; margin-bottom: 5px; height: 4rem; ">@String.Format("{0:N0}", item.DonGia) VNĐ</p>
+
+                                @if (item.SoLuong < 20)
+                                {
+                                    <div class="rating" style="text-align: center; color: white;">
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"> (@item.SoLuong) </i>
+                                    </div>
+                                }
+                                else if (item.SoLuong > 20 || item.SoLuong < 50)
+                                {
+                                    <div class="rating" style="text-align: center; color: white;">
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star-half checked"> (@item.SoLuong) </i>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="rating" style="text-align :center; color:goldenrod;">
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"> (@item.SoLuong) </i>
+                                    </div>
+                                }
+                            </div>
+                            <div class="card-footer text-center">
+                                <!-- HTML !-->
+                                <a style="font-size: 15px; color: snow; border-radius:12px !important; background-color:orangered " href="@Url.Action("ThemVaoGio", "GioHang", new { maSP = item.ID })" onclick="return confirm('Thêm Vào Giỏ Hàng ?')" class="btn btn-danger m-1 fas fa-shopping-cart"> Giỏ hàng</a>
+                                <a style="font-size: 15px; color: snow; border-radius:12px !important; background-color: lightskyblue " href="@Url.Action("Details", "Home", new { maSP = item.ID })" class="btn btn-info m-1 fas fa-info-circle"> Chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                    stt++;
+                    pre_id = item.ID;
+                }
+
+            }
+        </div>
+    </div>
+</div>

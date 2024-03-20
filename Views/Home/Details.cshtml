@@ -1,0 +1,23 @@
+﻿@model ShopDongHo.Models.DongHo
+@{
+    ViewBag.Title = Model.TenDongHo;
+    var cart = (List<ShopDongHo.Models.SanPhamTrongGio>)Session["cart"];
+}
+<div class="card mt-2">
+    <h5 class="card-header">@ViewBag.Title</h5>
+
+    <div class="card-body">
+        <p style="text-align:center;">@Html.Raw(Model.MoTa)</p> <!--chuyền nội dung mã hóa-->
+    </div>
+    <a style="text-align: center; font-size: 25px; background-color: orangered" ; href="@Url.Action("ThemVaoGio", "GioHang", new { maSP = Model.ID })" onclick="return confirm('Thêm Vào Giỏ Hàng ?')" class="btn btn-info m-1 fas fa-shopping-cart"> Thêm Vào Giỏ hàng</a>
+
+</div>
+    
+
+
+
+
+
+
+
+
